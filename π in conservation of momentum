@@ -1,25 +1,29 @@
+//在一个墙壁一侧有两个物体，质量小(m)的靠近墙壁，质量大(M)的远离，给予M一个初速度V，使其方向朝向m。
+//可以预测到，m因M的碰撞而获得一个向墙壁的速度，m与墙壁碰撞后速度大小不变，方向反转，再与M迎面相撞。
+//所有过程没有摩擦，所有过程均无动量与能量的损失（除与墙壁碰撞会改变动量外）。
+//计算m与M和墙壁碰撞的次数
 #include<stdio.h>
 #include<math.h>
 int main(){
 	double V,Vlast,vlast=0,v=0;
-	long int i,u;
-	scanf("%ld%lf",&u,&Vlast); //V<0 
+	long int i,u;   //u=M/m
+	scanf("%ld%lf",&u,&Vlast);    //初速度V<0；事实上，V的值是无所谓的，只要V<0
 	for(i=1;;i++){
-		if(i%2==0){
+		if(i%2==0){           //与墙壁的碰撞
 			V=Vlast;
 			v=-vlast;
 			Vlast=V;
 			vlast=v;
 		}
-		else{
-			V=((u-1)*Vlast+2*vlast)/(u+1);
+		else{                   //与M的碰撞
+			V=((u-1)*Vlast+2*vlast)/(u+1); 
 			v=((1-u)*vlast+2*u*Vlast)/(u+1);
 			Vlast=V;
 			vlast=v;
 		}
 		if(V>=0&&v>=0&&V>=v){
-			printf("V=%.16lf v=%.16lf\n",V,v);
-			printf("%ld",i);
+			printf("V=%.16lf v=%.16lf\n",V,v);     //输出随后的速度
+			printf("%ld",i);          	      //输出碰撞的次数
 			break;
 		}
 	}
