@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<math.h>
+int main(){
+	double V,Vlast,vlast=0,v=0;
+	long int i,u;
+	scanf("%ld%lf",&u,&Vlast); //V<0 
+	for(i=1;;i++){
+		if(i%2==0){
+			V=Vlast;
+			v=-vlast;
+			Vlast=V;
+			vlast=v;
+		}
+		else{
+			V=((u-1)*Vlast+2*vlast)/(u+1);
+			v=((1-u)*vlast+2*u*Vlast)/(u+1);
+			Vlast=V;
+			vlast=v;
+		}
+		if(V>=0&&v>=0&&V>=v){
+			printf("V=%.16lf v=%.16lf\n",V,v);
+			printf("%ld",i);
+			break;
+		}
+	}
+	return 0;
+} 
